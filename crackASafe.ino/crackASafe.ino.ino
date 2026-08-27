@@ -51,6 +51,7 @@ void loop() {
 
     // \r usw. entfernen
     text.trim();
+    text.replace("\\n", "\n");
 
     // Display löschen
     display.clearDisplay();
