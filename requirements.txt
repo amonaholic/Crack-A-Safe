@@ -1,0 +1,23 @@
+# Crack-A-Safe - Python Setup
+#
+# 1. Make sure Python 3.13 or newer is installed.
+#
+# 2. Open the project folder in Visual Studio Code.
+#
+# 3. Install the "Python" extension by Microsoft in VS Code.
+#
+# 4. Select your Python interpreter:
+#    Ctrl + Shift + P
+#    -> "Python: Select Interpreter"
+#
+# 5. Open a terminal in VS Code and install the required packages:
+#
+#    python -m pip install -r requirements.txt
+#
+# 6. You can now run the project with:
+#
+#    python crackASafe.py
+#
+# Required Python package:
+
+pyserial==3.5
