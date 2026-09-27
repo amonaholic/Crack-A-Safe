@@ -11,30 +11,51 @@ class Safe:
         self.is_open = False
 
 
-    # Generate a random passcode with 6 digits from 0 to 9
+    # -----------------------------------------------------
+    # TASK 1
+    # Generate a random passcode.
+    #
+    # The passcode should:
+    # - contain 6 digits
+    # - only contain numbers from 0 to 9
+    #
+    # Example:
+    # [4, 1, 8, 2, 2, 7]
+    # -----------------------------------------------------
     def generate_passcode(self):
 
         self.passcode = []
 
-        for _ in range(6):
-            digit = random.randint(0, 9)
-            self.passcode.append(digit)
+        # TODO:
+        # Generate six random digits
+        # and add them to self.passcode.
+
 
         return self.passcode
 
 
-    # Check whether the entered passcode is correct
+    # -----------------------------------------------------
+    # TASK 2
+    # Check whether the entered passcode is correct.
+    #
+    # Return True if both passcodes are equal.
+    # Otherwise return False.
+    # -----------------------------------------------------
     def check_passcode(self, entered_passcode):
 
-        if entered_passcode == self.passcode:
-            self.is_open = True
-            return True
-
-        else:
-            return False
+        # TODO:
+        # Compare entered_passcode with self.passcode.
 
 
-    # Wait for a confirmed digit from the rotary encoder
+        return False
+
+
+    # -----------------------------------------------------
+    # Read a digit from the rotary encoder.
+    #
+    # This function is already implemented.
+    # You do NOT have to change it.
+    # -----------------------------------------------------
     def read_digit_from_encoder(self):
 
         while True:
@@ -42,10 +63,10 @@ class Safe:
             # Read one complete line from the Arduino
             line = self.ser.readline()
 
-            # Convert received bytes into a normal string
+            # Convert bytes into text
             line = line.decode("utf-8").strip()
 
-            # Debug output on the PC
+            # Debug output
             print("Arduino:", line)
 
             # The Arduino sends messages such as:
@@ -57,59 +78,102 @@ class Safe:
                 return int(value)
 
 
-    # Start the main safe-cracking game loop
+    # -----------------------------------------------------
+    # TASK 3
+    # Implement the main game.
+    # -----------------------------------------------------
     def start_cracking(self):
 
         guessed_passcode = []
         digit_index = 0
 
-        # Continue until all digits of the passcode
-        # have been entered correctly
+
+        # -------------------------------------------------
+        # TASK 3.1
+        #
+        # Repeat the game until every digit of the
+        # passcode has been guessed correctly.
+        # -------------------------------------------------
+
         while digit_index < len(self.passcode):
 
-            # Tell the Arduino that a new digit should be entered
+            # Tell the Arduino that the player
+            # should enter a digit.
             self.ser.write(b"Enter a digit\n")
 
-            # Wait for input from the rotary encoder
+            # Read the selected digit from the encoder.
             digit = self.read_digit_from_encoder()
 
-            # Debug output on the PC
+
+            # Debug output
             print("Expected digit:", self.passcode[digit_index])
             print("Entered digit:", digit)
 
 
-            # Entered digit is too small
-            if digit < self.passcode[digit_index]:
-
-                self.ser.write(b"Hint:\\nBigger number!\n")
-
-                time.sleep(2.5)
-
-
-            # Entered digit is too large
-            elif digit > self.passcode[digit_index]:
-
-                self.ser.write(b"Hint:\\nSmaller number!\n")
-
-                time.sleep(2.5)
-
-
-            # Entered digit is correct
-            else:
-
-                self.ser.write(b"Click! Correct digit.\n")
-
-                time.sleep(2.5)
-
-                guessed_passcode.append(digit)
-
-                digit_index += 1
+            # -------------------------------------------------
+            # TASK 3.2
+            #
+            # Compare the entered digit with the current
+            # digit of the passcode.
+            #
+            # Case 1:
+            # The entered digit is too small.
+            #
+            # Case 2:
+            # The entered digit is too large.
+            #
+            # Case 3:
+            # The entered digit is correct.
+            # -------------------------------------------------
 
 
-        # Check the complete passcode after all digits
-        # have been entered correctly
-        if self.check_passcode(guessed_passcode):
+            # TODO:
+            # If the entered digit is too small:
+            #
+            # Send this message to the Arduino:
+            #
+            # self.ser.write(b"Hint:\\nBigger number!\n")
+            #
+            # Then wait for a short moment.
 
-            self.ser.write(b"Click! The safe opened\n")
 
-            time.sleep(1000)
+
+            # TODO:
+            # If the entered digit is too large:
+            #
+            # Send this message:
+            #
+            # self.ser.write(b"Hint:\\nSmaller number!\n")
+            #
+            # Then wait for a short moment.
+
+
+
+            # TODO:
+            # If the digit is correct:
+            #
+            # 1. Send:
+            #
+            # self.ser.write(b"Click! Correct digit.\n")
+            #
+            # 2. Wait for a short moment
+            #
+            # 3. Add the digit to guessed_passcode
+            #
+            # 4. Increase digit_index by 1
+
+
+
+        # -------------------------------------------------
+        # TASK 4
+        #
+        # After all six digits have been entered,
+        # check the complete passcode.
+        # -------------------------------------------------
+
+        # TODO:
+        # Use check_passcode() to check guessed_passcode.
+        #
+        # If the passcode is correct, send:
+        #
+        # self.ser.write(b"Click! The safe opened\n")
