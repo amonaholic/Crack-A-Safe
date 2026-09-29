@@ -35,10 +35,6 @@ try:
     # Start the safe cracking game
     safe.start_cracking()
 
-    # Keep the program running
-    while True:
-        time.sleep(1)
-
 
 finally:
     # Always close the serial connection when the program stops
