@@ -172,7 +172,7 @@ class Safe:
         # -------------------------------------------------
 
         # TODO:
-        # Use check_passcode() to check guessed_passcode.
+        # Use check_passcode() to check guessed_passcode. If passcode is correct: end the game.
         #
         # If the passcode is correct, send:
         #
