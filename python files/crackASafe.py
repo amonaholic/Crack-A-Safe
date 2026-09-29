@@ -1,10 +1,19 @@
 from safe import Safe
 import serial
+import platform
 import time
 
 
+# Check which OS is in use
+if platform.system() == "Windows":
+    port = "COM3"
+elif platform.system() == "Linux":
+    port = "/dev/ttyUSB0"
+else:
+    raise RuntimeError("OS not supported")
+
 # Open the serial connection to communicate with the ESP32
-ser = serial.Serial("COM3", 115200)
+ser = serial.Serial(port, 115200)
 
 # The ESP32 may restart when the serial connection is opened
 time.sleep(2)
