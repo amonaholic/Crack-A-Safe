@@ -107,9 +107,9 @@ class Safe:
 
 
         # Check the complete passcode after all digits
-        # have been entered correctly
+        # have been entered correctly and end the program
         if self.check_passcode(guessed_passcode):
 
             self.ser.write(b"Click! The safe opened\n")
-
-            time.sleep(1000)
+            time.sleep(10)
+            return
