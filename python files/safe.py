@@ -148,7 +148,6 @@ class Safe:
             # Then wait for a short moment.
 
 
-<<<<<<< HEAD
 
             # TODO:
             # If the digit is correct:
@@ -178,12 +177,3 @@ class Safe:
         # If the passcode is correct, send:
         #
         # self.ser.write(b"Click! The safe opened\n")
-=======
-        # Check the complete passcode after all digits
-        # have been entered correctly and end the program
-        if self.check_passcode(guessed_passcode):
-
-            self.ser.write(b"Click! The safe opened\n")
-            time.sleep(10)
-            return
->>>>>>> 38693f7 (Made changes to have a natural ending)
