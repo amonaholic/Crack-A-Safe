@@ -10,4 +10,4 @@ __pycache__/
 .idea/
 
 # VS Code
-.vscode/
+.vscode/*!.vscode/extensions.json
